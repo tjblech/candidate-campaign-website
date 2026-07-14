@@ -26,7 +26,8 @@ const priorities = [
 ];
 
 const experience = [
-  "Graduate of South Kingstown public schools",
+  "Grew up in South Kingstown and graduated from South Kingstown public schools",
+  "Former Boy Scout with Troop 1 in Wakefield",
   "Accounting student at the University of Rhode Island, graduating in 2027",
   "Member of the United States Army Reserve",
   "Legislative proofreader for the Rhode Island General Assembly",
@@ -49,18 +50,28 @@ export default function Home() {
             <p className="text-xl font-black uppercase leading-none tracking-tight text-[#0a3161]">
               Jack Cadman
             </p>
+
             <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.25em] text-[#b31942]">
               School Committee
             </p>
           </a>
 
           <div className="hidden items-center gap-8 text-sm font-bold uppercase tracking-wide md:flex">
-            <a className="transition hover:text-[#b31942]" href="#priorities">
+            <a
+              className="transition hover:text-[#b31942]"
+              href="#priorities"
+            >
               Priorities
             </a>
+
             <a className="transition hover:text-[#b31942]" href="#about">
               About
             </a>
+
+            <a className="transition hover:text-[#b31942]" href="#contact">
+              Contact
+            </a>
+
             <a
               href="https://secure.actblue.com/donate/jack-cadman-1"
               target="_blank"
@@ -98,7 +109,9 @@ export default function Home() {
 
             <h1 className="max-w-3xl text-5xl font-black uppercase leading-[0.92] tracking-[-0.045em] sm:text-6xl md:text-7xl">
               Strong schools.
-              <span className="block text-[#ef3340]">Stronger community.</span>
+              <span className="block text-[#ef3340]">
+                Stronger community.
+              </span>
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-blue-100 md:text-xl">
@@ -132,8 +145,9 @@ export default function Home() {
             <div className="relative flex min-h-[450px] items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-slate-200 text-center text-slate-600 shadow-2xl">
               <div className="px-10">
                 <p className="text-lg font-bold">Candidate photo goes here</p>
+
                 <p className="mt-2 text-sm">
-                  We will replace this box when you have a good portrait.
+                  Replace this box when you have a campaign portrait.
                 </p>
               </div>
             </div>
@@ -142,6 +156,7 @@ export default function Home() {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b31942]">
                 Candidate for
               </p>
+
               <p className="mt-1 text-lg font-black uppercase">
                 School Committee
               </p>
@@ -159,6 +174,7 @@ export default function Home() {
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b31942]">
               Public Education
             </p>
+
             <p className="mt-2 font-semibold">
               Strong schools create strong communities.
             </p>
@@ -168,6 +184,7 @@ export default function Home() {
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#0a3161]">
               Opportunity
             </p>
+
             <p className="mt-2 font-semibold">
               Academics, arts, athletics, and extracurriculars matter.
             </p>
@@ -177,6 +194,7 @@ export default function Home() {
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#b31942]">
               Community
             </p>
+
             <p className="mt-2 font-semibold">
               Students, educators, and families deserve a voice.
             </p>
@@ -228,17 +246,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quote */}
+      {/* Campaign statement */}
       <section className="bg-[#b31942] text-white">
         <div className="mx-auto max-w-5xl px-6 py-20 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.3em] text-red-100">
             A campaign rooted in service
           </p>
 
-          <blockquote className="mt-6 text-3xl font-black leading-tight md:text-5xl">
-            “South Kingstown&apos;s students and educators deserve leaders who
-            listen, show up, and put the community first.”
-          </blockquote>
+          <h2 className="mt-6 text-3xl font-black leading-tight md:text-5xl">
+            South Kingstown&apos;s students and educators deserve leaders who
+            listen, show up, and put the community first.
+          </h2>
         </div>
       </section>
 
@@ -256,20 +274,32 @@ export default function Home() {
 
             <div className="mt-6 space-y-5 text-lg leading-8 text-slate-600">
               <p>
-                Jack Cadman is a graduate of South Kingstown public schools and
-                an accounting student at the University of Rhode Island,
-                graduating in 2027.
+                Jack Cadman grew up in South Kingstown and attended Wakefield
+                Elementary School, Broad Rock Middle School, Curtis Corner
+                Middle School, and South Kingstown High School. He also
+                participated in Boy Scouts with Troop 1 in Wakefield.
               </p>
 
               <p>
-                He serves in the United States Army Reserve and works as a
-                legislative proofreader for the Rhode Island General Assembly.
+                Jack is currently studying accounting at the University of
+                Rhode Island and expects to graduate in 2027. As a member of
+                the United States Army Reserve, he has developed discipline,
+                teamwork, and the ability to perform under pressure.
               </p>
 
               <p>
-                Jack believes public service means listening to the community,
-                giving back, and making decisions that create opportunity for
-                every student.
+                In his work as a legislative proofreader for the Rhode Island
+                General Assembly, Jack has gained experience reading government
+                policy carefully, working with state policymakers, and
+                recognizing how small details can affect the wider community.
+              </p>
+
+              <p>
+                Jack has also served on the South Kingstown Economic
+                Development Committee and the town&apos;s 250th Anniversary
+                Committee. He believes public service means listening, giving
+                back, and keeping students, educators, families, and community
+                members at the center of local decisions.
               </p>
             </div>
           </div>
@@ -285,10 +315,65 @@ export default function Home() {
                   <span className="mt-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#b31942] text-xs font-bold">
                     ✓
                   </span>
+
                   <span className="leading-7 text-blue-50">{item}</span>
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="bg-[#0a3161] text-white">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p className="font-bold uppercase tracking-[0.24em] text-red-300">
+              Contact the Campaign
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black uppercase tracking-tight md:text-5xl">
+              Connect with Jack
+            </h2>
+
+            <p className="mt-5 max-w-xl text-lg leading-8 text-blue-100">
+              Have a question, want to share your thoughts about South
+              Kingstown schools, or want to get involved? Reach out to the
+              campaign.
+            </p>
+
+            <a
+              href="mailto:JackCadman@JackLCadman.com"
+              className="mt-8 inline-block rounded-md bg-white px-7 py-4 font-bold text-[#0a3161] transition hover:-translate-y-0.5 hover:bg-slate-100"
+            >
+              JackCadman@JackLCadman.com
+            </a>
+          </div>
+
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-8 backdrop-blur">
+            <p className="text-sm font-bold uppercase tracking-[0.24em] text-blue-200">
+              Follow the Campaign
+            </p>
+
+            <div className="mt-6 flex flex-col gap-4">
+              <a
+                href="https://x.com/JackLCadman"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border border-white/20 px-5 py-4 font-bold transition hover:bg-white hover:text-[#0a3161]"
+              >
+                Follow Jack on X
+              </a>
+
+              <a
+                href="https://www.instagram.com/jacklcadman/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border border-white/20 px-5 py-4 font-bold transition hover:bg-white hover:text-[#0a3161]"
+              >
+                Follow Jack on Instagram
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -340,15 +425,13 @@ export default function Home() {
 
             <div className="text-sm text-blue-200 md:text-right">
               <p>© 2026 Jack Cadman Campaign. All rights reserved.</p>
-              <p className="mt-2">
-                South Kingstown, Rhode Island
-              </p>
+              <p className="mt-2">South Kingstown, Rhode Island</p>
             </div>
           </div>
 
           <div className="mt-8 border-t border-white/10 pt-6">
             <p className="text-center text-xs uppercase tracking-[0.18em] text-blue-300/75">
-              Paid for by Jack Cadman.
+              Paid for by Friends of Jack Cadman.
             </p>
           </div>
         </div>
