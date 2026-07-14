@@ -31,22 +31,18 @@ const priorities = [
 
 const quickFacts = [
   {
-    icon: "🏫",
     title: "South Kingstown Graduate",
     description: "Educated in South Kingstown public schools",
   },
   {
-    icon: "🇺🇸",
     title: "Army Reserve",
     description: "Serving in the United States Army Reserve",
   },
   {
-    icon: "🎓",
     title: "URI Student",
     description: "Studying accounting and graduating in 2027",
   },
   {
-    icon: "🏛️",
     title: "Public Service",
     description: "Experience in local and state government",
   },
@@ -357,17 +353,14 @@ export default function Home() {
       {/* Quick facts */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-px bg-slate-200 sm:grid-cols-2 lg:grid-cols-4">
-          {quickFacts.map((fact) => (
+          {quickFacts.map((fact, index) => (
             <article
               key={fact.title}
               className="group bg-white px-6 py-9 text-center transition hover:bg-slate-50"
             >
-              <div
-                className="text-3xl transition group-hover:-translate-y-1"
-                aria-hidden="true"
-              >
-                {fact.icon}
-              </div>
+              <p className="text-sm font-black tracking-[0.2em] text-[#b31942]">
+                {String(index + 1).padStart(2, "0")}
+              </p>
 
               <h2 className="mt-4 text-sm font-black uppercase tracking-[0.15em] text-[#0a3161]">
                 {fact.title}
@@ -464,16 +457,8 @@ export default function Home() {
       </section>
 
       {/* Campaign statement */}
-      <section className="relative overflow-hidden bg-[#b31942] text-white">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-10"
-          aria-hidden="true"
-        >
-          <div className="absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full border-[40px] border-white" />
-          <div className="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full border-[40px] border-white" />
-        </div>
-
-        <div className="relative mx-auto max-w-5xl px-6 py-20 text-center">
+      <section className="bg-[#b31942] text-white">
+        <div className="mx-auto max-w-5xl px-6 py-20 text-center">
           <p className="text-sm font-bold uppercase tracking-[0.3em] text-red-100">
             A campaign rooted in service
           </p>
@@ -541,9 +526,19 @@ export default function Home() {
               Service to country, state, and community
             </h2>
 
-            <p className="mt-6 text-lg leading-8 text-slate-600">
-              Jack&apos;s background connects local education, military
-              service, higher education, and hands-on experience in government.
+            {/* About photo placeholder */}
+            <div className="mt-10 flex min-h-[360px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 text-center text-slate-500 shadow-sm">
+              <div className="px-8">
+                <p className="font-bold text-[#0a3161]">About photo goes here</p>
+                <p className="mt-2 text-sm">
+                  Use a local, military, community-service, or casual campaign photo.
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-8 text-lg leading-8 text-slate-600">
+              Jack&apos;s background connects local education, military service,
+              higher education, and hands-on experience in government.
             </p>
           </div>
 
