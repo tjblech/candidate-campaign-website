@@ -503,10 +503,6 @@ export default function Home() {
               community members are heard.
             </p>
 
-            <p className="text-sm font-semibold italic text-blue-300">
-              Jack should review and approve this section before the site goes
-              live so it reflects his voice and reasons for running.
-            </p>
           </div>
         </div>
       </section>
