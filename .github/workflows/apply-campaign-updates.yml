@@ -1,0 +1,105 @@
+name: Apply campaign content updates
+
+on:
+  push:
+    paths:
+      - ".github/workflows/apply-campaign-updates.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Move photos and update page
+        run: |
+          mkdir -p public/images
+          git mv jack-group.jpeg public/images/jack-group.jpeg
+          git mv jack-community.jpeg public/images/jack-community.jpeg
+
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("app/page.tsx")
+          text = path.read_text()
+
+          old_import = 'import { useState } from "react";'
+          new_import = 'import Image from "next/image";\nimport { useState } from "react";'
+          if old_import not in text:
+              raise SystemExit("Could not find React import")
+          text = text.replace(old_import, new_import, 1)
+
+          old_experience = '''  {
+            title: "Boy Scouts",
+            description:
+              "Participated in Boy Scouts with Troop 1 in Wakefield while growing up in South Kingstown.",
+          },'''
+          new_experience = '''  {
+            title: "New High School",
+            description:
+              "Tirelessly advocated for the construction of South Kingstown's new high school.",
+          },'''
+          if old_experience not in text:
+              raise SystemExit("Could not find Boy Scouts experience card")
+          text = text.replace(old_experience, new_experience, 1)
+
+          text = text.replace("JackCadman@JackLCadman.com", "JackLCadman@gmail.com")
+
+          photo_block = '''{/* Campaign photos */}
+            <div className="mt-10 space-y-6">
+              <figure>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md">
+                  <Image
+                    src="/images/jack-group.jpeg"
+                    alt="Jack Cadman with community members at a civic event"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover object-center transition duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+                <figcaption className="mt-3 text-sm leading-6 text-slate-500">
+                  Jack participating in the South Kingstown community.
+                </figcaption>
+              </figure>
+
+              <figure>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md">
+                  <Image
+                    src="/images/jack-community.jpeg"
+                    alt="Jack Cadman with a community leader at a local event"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover object-center transition duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+                <figcaption className="mt-3 text-sm leading-6 text-slate-500">
+                  Building relationships through local civic involvement.
+                </figcaption>
+              </figure>
+            </div>
+
+            '''
+
+          pattern = re.compile(
+              r'\{\/\* About photo placeholder \*\/\}.*?(?=<p className="mt-8 text-lg leading-8 text-slate-600">)',
+              re.DOTALL,
+          )
+          text, count = pattern.subn(photo_block, text, count=1)
+          if count != 1:
+              raise SystemExit("Could not find About photo placeholder")
+
+          path.write_text(text)
+          PY
+
+      - name: Commit updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/page.tsx public/images/jack-group.jpeg public/images/jack-community.jpeg
+          git commit -m "Add campaign photos and update contact details"
+          git push
