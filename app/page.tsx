@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const priorities = [
   {
@@ -324,17 +325,18 @@ export default function Home() {
               className="absolute -inset-4 rotate-2 rounded-2xl bg-[#b31942]"
               aria-hidden="true"
             />
-
-            <div className="relative flex min-h-[450px] items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-slate-200 text-center text-slate-600 shadow-2xl">
-              <div className="px-10">
-                <p className="text-lg font-bold">Candidate photo goes here</p>
-
-                <p className="mt-2 text-sm">
-                  Replace this box when you have a campaign portrait.
-                </p>
-              </div>
+          
+            <div className="relative overflow-hidden rounded-2xl border-4 border-white shadow-2xl">
+              <Image
+                src="/images/jack-portrait.jpg"
+                alt="Jack Cadman standing in front of an American flag"
+                width={1200}
+                height={1800}
+                priority
+                className="h-auto w-full object-cover"
+              />
             </div>
-
+          
             <div className="absolute -bottom-5 -left-2 rounded-md bg-white px-5 py-4 text-[#0a3161] shadow-xl sm:-left-5">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b31942]">
                 Candidate for
