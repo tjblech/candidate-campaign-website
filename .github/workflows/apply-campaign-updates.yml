@@ -1,5 +1,6 @@
 name: Apply campaign content updates
 
+# Triggered once to apply the requested site changes.
 on:
   push:
     paths:
