@@ -51,19 +51,19 @@ export default function RootLayout({
 
                 const aboutBlock = aboutPlaceholder?.closest('.mt-10');
                 if (aboutBlock) {
-                  aboutBlock.className = 'mt-10 grid gap-5 sm:grid-cols-2';
+                  aboutBlock.className = 'mt-10 flex flex-col gap-4';
                   aboutBlock.innerHTML = \`
                     <figure>
                       <div style="overflow:hidden;border-radius:1rem;border:1px solid #e2e8f0;background:#f1f5f9;box-shadow:0 4px 12px rgba(15,23,42,.12)">
-                        <img src="/images/jack-group.jpeg" alt="Jack Cadman with community members at a civic event" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover" />
+                        <img src="/images/jack-group.jpeg" alt="Jack Cadman attending a ceremony honoring the First Rhode Island Regiment" style="display:block;width:100%;height:220px;object-fit:cover;object-position:center 38%" />
                       </div>
-                      <figcaption style="margin-top:.75rem;font-size:.875rem;line-height:1.5rem;color:#64748b">Jack with community members at a local civic event.</figcaption>
+                      <figcaption style="margin-top:.55rem;font-size:.875rem;line-height:1.35rem;color:#64748b">Attending a ceremony honoring the First Rhode Island Regiment.</figcaption>
                     </figure>
                     <figure>
                       <div style="overflow:hidden;border-radius:1rem;border:1px solid #e2e8f0;background:#f1f5f9;box-shadow:0 4px 12px rgba(15,23,42,.12)">
-                        <img src="/images/jack-community.jpeg" alt="Jack Cadman with a community leader at a local event" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 30%" />
+                        <img src="/images/jack-community.jpeg" alt="Jack Cadman with a community leader at a local event" style="display:block;width:100%;height:220px;object-fit:cover;object-position:center 30%" />
                       </div>
-                      <figcaption style="margin-top:.75rem;font-size:.875rem;line-height:1.5rem;color:#64748b">Jack connecting with local leaders in the community.</figcaption>
+                      <figcaption style="margin-top:.55rem;font-size:.875rem;line-height:1.35rem;color:#64748b">Jack connecting with local leaders in the community.</figcaption>
                     </figure>
                   \`;
                 }
