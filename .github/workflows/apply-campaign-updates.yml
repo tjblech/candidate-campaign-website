@@ -1,10 +1,7 @@
 name: Apply campaign content updates
 
-# Triggered once to apply the requested site changes.
 on:
-  push:
-    paths:
-      - ".github/workflows/apply-campaign-updates.yml"
+  workflow_dispatch:
 
 permissions:
   contents: write
