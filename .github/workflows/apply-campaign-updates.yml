@@ -2,9 +2,6 @@ name: Apply campaign content updates
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/trigger-campaign-update"
 
 permissions:
   contents: write
@@ -16,11 +13,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Move photos and update page
+      - name: Apply campaign updates
         run: |
           mkdir -p public/images
-          if [ -f jack-group.jpeg ]; then git mv jack-group.jpeg public/images/jack-group.jpeg; fi
-          if [ -f jack-community.jpeg ]; then git mv jack-community.jpeg public/images/jack-community.jpeg; fi
+          mv jack-group.jpeg public/images/jack-group.jpeg
+          mv jack-community.jpeg public/images/jack-community.jpeg
 
           python3 <<'PY'
           from pathlib import Path
@@ -47,8 +44,8 @@ jobs:
               count=1,
               flags=re.DOTALL,
           )
-          if count != 1 and 'title: "New High School"' not in text:
-              raise SystemExit("Could not update Boy Scouts experience card")
+          if count != 1:
+              raise SystemExit("Could not replace Boy Scouts card")
 
           text = text.replace("JackCadman@JackLCadman.com", "JackLCadman@gmail.com")
 
@@ -87,14 +84,15 @@ jobs:
 
             '''
 
-          if 'src="/images/jack-group.jpeg"' not in text:
-              pattern = re.compile(
-                  r'\{\/\* About photo placeholder \*\/\}.*?(?=<p className="mt-8 text-lg leading-8 text-slate-600">)',
-                  re.DOTALL,
-              )
-              text, count = pattern.subn(photo_block, text, count=1)
-              if count != 1:
-                  raise SystemExit("Could not find About photo placeholder")
+          text, count = re.subn(
+              r'\{\/\* About photo placeholder \*\/\}.*?(?=<p className="mt-8 text-lg leading-8 text-slate-600">)',
+              photo_block,
+              text,
+              count=1,
+              flags=re.DOTALL,
+          )
+          if count != 1:
+              raise SystemExit("Could not replace About photo placeholder")
 
           path.write_text(text)
           PY
@@ -103,6 +101,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add app/page.tsx public/images/jack-group.jpeg public/images/jack-community.jpeg
           git commit -m "Add campaign photos and update contact details"
           git push
