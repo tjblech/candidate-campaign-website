@@ -63,20 +63,19 @@ const campaignUpdates = String.raw`
         const gallery = document.createElement("div");
         gallery.id = "campaign-photo-gallery";
         gallery.className = "mt-10 space-y-6";
-        gallery.innerHTML = [
-          '<figure>',
-          '<div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md">',
-          '<img src="/images/jack-group.jpeg" alt="Jack Cadman with community members at a civic event" class="h-full w-full object-cover object-center transition duration-500 hover:scale-[1.02]" />',
-          '</div>',
-          '<figcaption class="mt-3 text-sm leading-6 text-slate-500">Jack participating in the South Kingstown community.</figcaption>',
-          '</figure>',
-          '<figure>',
-          '<div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md">',
-          '<img src="/images/jack-community.jpeg" alt="Jack Cadman with a community leader at a local event" class="h-full w-full object-cover object-center transition duration-500 hover:scale-[1.02]" />',
-          '</div>',
-          '<figcaption class="mt-3 text-sm leading-6 text-slate-500">Building relationships through local civic involvement.</figcaption>',
-          '</figure>'
-        ].join("");
+        gallery.innerHTML =
+          '<figure>' +
+          '<div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md">' +
+          '<img src="/images/jack-group.jpeg" alt="Jack Cadman with community members at a civic event" class="h-full w-full object-cover object-center transition duration-500 hover:scale-[1.02]" />' +
+          '</div>' +
+          '<figcaption class="mt-3 text-sm leading-6 text-slate-500">Jack participating in the South Kingstown community.</figcaption>' +
+          '</figure>' +
+          '<figure>' +
+          '<div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md">' +
+          '<img src="/images/jack-community.jpeg" alt="Jack Cadman with a community leader at a local event" class="h-full w-full object-cover object-center transition duration-500 hover:scale-[1.02]" />' +
+          '</div>' +
+          '<figcaption class="mt-3 text-sm leading-6 text-slate-500">Building relationships through local civic involvement.</figcaption>' +
+          '</figure>';
 
         placeholder.replaceWith(gallery);
       }
@@ -100,10 +99,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-      <Script id="campaign-content-updates" strategy="afterInteractive">
-        {campaignUpdates}
-      </Script>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Script id="campaign-content-updates" strategy="afterInteractive">
+          {campaignUpdates}
+        </Script>
+      </body>
     </html>
   );
 }
