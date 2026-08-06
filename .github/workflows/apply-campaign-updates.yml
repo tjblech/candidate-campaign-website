@@ -2,6 +2,9 @@ name: Apply campaign content updates
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/trigger-campaign-update"
 
 permissions:
   contents: write
@@ -16,8 +19,8 @@ jobs:
       - name: Move photos and update page
         run: |
           mkdir -p public/images
-          git mv jack-group.jpeg public/images/jack-group.jpeg
-          git mv jack-community.jpeg public/images/jack-community.jpeg
+          if [ -f jack-group.jpeg ]; then git mv jack-group.jpeg public/images/jack-group.jpeg; fi
+          if [ -f jack-community.jpeg ]; then git mv jack-community.jpeg public/images/jack-community.jpeg; fi
 
           python3 <<'PY'
           from pathlib import Path
@@ -26,25 +29,26 @@ jobs:
           path = Path("app/page.tsx")
           text = path.read_text()
 
-          old_import = 'import { useState } from "react";'
-          new_import = 'import Image from "next/image";\nimport { useState } from "react";'
-          if old_import not in text:
-              raise SystemExit("Could not find React import")
-          text = text.replace(old_import, new_import, 1)
+          if 'import Image from "next/image";' not in text:
+              text = text.replace(
+                  'import { useState } from "react";',
+                  'import Image from "next/image";\nimport { useState } from "react";',
+                  1,
+              )
 
-          old_experience = '''  {
-            title: "Boy Scouts",
-            description:
-              "Participated in Boy Scouts with Troop 1 in Wakefield while growing up in South Kingstown.",
-          },'''
-          new_experience = '''  {
-            title: "New High School",
-            description:
-              "Tirelessly advocated for the construction of South Kingstown's new high school.",
-          },'''
-          if old_experience not in text:
-              raise SystemExit("Could not find Boy Scouts experience card")
-          text = text.replace(old_experience, new_experience, 1)
+          text, count = re.subn(
+              r'\{\s*title:\s*"Boy Scouts",\s*description:\s*"Participated in Boy Scouts with Troop 1 in Wakefield while growing up in South Kingstown\."\s*,?\s*\}',
+              '''{
+    title: "New High School",
+    description:
+      "Tirelessly advocated for the construction of South Kingstown's new high school.",
+  }''',
+              text,
+              count=1,
+              flags=re.DOTALL,
+          )
+          if count != 1 and 'title: "New High School"' not in text:
+              raise SystemExit("Could not update Boy Scouts experience card")
 
           text = text.replace("JackCadman@JackLCadman.com", "JackLCadman@gmail.com")
 
@@ -83,13 +87,14 @@ jobs:
 
             '''
 
-          pattern = re.compile(
-              r'\{\/\* About photo placeholder \*\/\}.*?(?=<p className="mt-8 text-lg leading-8 text-slate-600">)',
-              re.DOTALL,
-          )
-          text, count = pattern.subn(photo_block, text, count=1)
-          if count != 1:
-              raise SystemExit("Could not find About photo placeholder")
+          if 'src="/images/jack-group.jpeg"' not in text:
+              pattern = re.compile(
+                  r'\{\/\* About photo placeholder \*\/\}.*?(?=<p className="mt-8 text-lg leading-8 text-slate-600">)',
+                  re.DOTALL,
+              )
+              text, count = pattern.subn(photo_block, text, count=1)
+              if count != 1:
+                  raise SystemExit("Could not find About photo placeholder")
 
           path.write_text(text)
           PY
@@ -98,6 +103,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/page.tsx public/images/jack-group.jpeg public/images/jack-community.jpeg
+          git add -A
           git commit -m "Add campaign photos and update contact details"
           git push
